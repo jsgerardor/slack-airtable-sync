@@ -29,7 +29,7 @@ def _download_image(gif_url):
 
     return base64.b64encode(buffered.read()).decode('utf-8')
 
-
+# TODO: Change this to use an API instead of local
 def parse(gif_url):
     url = "http://localhost:11434/api/generate"
     payload = {
