@@ -54,6 +54,31 @@ python3 -m main
 
 The bot will start listening to events in the specified Slack workspace and update the Airtable base accordingly.
 
-## License
+## Docker
 
-This project is licensed under the MIT License.
+### Build and Run with Docker
+
+1. Build the Docker image:
+    ```sh
+    make build
+    ```
+
+2. Run the Docker container:
+    ```sh
+    make run
+    ```
+
+3. Stop the Docker container:
+    ```sh
+    make stop
+    ```
+
+4. Remove the Docker container:
+    ```sh
+    make rm
+    ```
+
+5. Rebuild and run the Docker container:
+    ```sh
+    make rebuild
+    ```
