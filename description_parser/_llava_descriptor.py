@@ -29,16 +29,39 @@ def _download_image(gif_url):
 
     return base64.b64encode(buffered.read()).decode('utf-8')
 
-# TODO: Change this to use an API instead of local
 def parse(gif_url):
-    url = "http://localhost:11434/api/generate"
+    url = "http://172.20.40.11:8000/v1/chat/completions"
     payload = {
-        "model": "llava",
-        "prompt": _PROMPT,
-        "images": [_download_image(gif_url)]
+        "model": "llava-v1.5-7b",
+        "temperature": 0,
+        "messages": [
+            {
+                "content": "You extract text from image and you only extract what the user tells you",
+                "role": "system"
+            },
+            {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": _PROMPT
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": gif_url
+                        }
+                    }
+                ],
+                "role": "user"
+            }
+        ]
     }
 
-    response = requests.post(url, json=payload)
+    headers = {
+        'Content-Type': 'application/json; charset=utf-8'
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
     generated_texts = [line for line in response.text.split('\n')]
 
     description = ""
